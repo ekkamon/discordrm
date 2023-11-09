@@ -2,6 +2,7 @@ package server
 
 import (
 	"discordrm/api/config"
+	"discordrm/api/pkg/databases"
 	"fmt"
 
 	"github.com/gofiber/fiber/v2"
@@ -10,12 +11,14 @@ import (
 type Server struct {
 	Fiber *fiber.App
 	Cfg   *config.Config
+	DB    *databases.Conn
 }
 
-func NewServer(cfg *config.Config) *Server {
+func NewServer(cfg *config.Config, dbs *databases.Conn) *Server {
 	return &Server{
 		Fiber: fiber.New(),
 		Cfg:   cfg,
+		DB:    dbs,
 	}
 }
 
