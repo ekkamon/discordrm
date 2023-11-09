@@ -1,7 +1,7 @@
 package server
 
 import (
-	"discordrm/api/pkg/errors"
+	"discordrm/api/pkg/langs"
 	"net/http"
 
 	"github.com/gofiber/fiber/v2"
@@ -9,8 +9,10 @@ import (
 
 func (s *Server) MapHandlers() error {
 	s.Fiber.Use(func(ctx *fiber.Ctx) error {
-		status := http.StatusNotFound
-		return ctx.Status(status).JSON(errors.NewRespError(status, fiber.ErrNotFound.Message))
+		return ctx.Status(http.StatusNotFound).JSON(fiber.Map{
+			"status":  http.StatusNotFound,
+			"message": langs.ErrNotFound,
+		})
 	})
 
 	return nil
