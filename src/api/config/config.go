@@ -1,26 +1,26 @@
 package config
 
 import (
-	"os"
-
-	"github.com/joho/godotenv"
+	"github.com/caarlos0/env/v10"
+	_ "github.com/joho/godotenv/autoload"
 )
 
+// App Config
 type Config struct {
-	Host string
-	Port string
+	Server ServerConfig
+}
+
+// Fiber Config
+type ServerConfig struct {
+	Host string `env:"FIBER_HOST,required"`
+	Port string `env:"FIBER_PORT,required"`
 }
 
 func LoadConfig() (*Config, error) {
-	err := godotenv.Load(".env")
+	cfg := &Config{}
 
-	if err != nil {
+	if err := env.Parse(cfg); err != nil {
 		return nil, err
-	}
-
-	cfg := &Config{
-		Host: os.Getenv("HOST"),
-		Port: os.Getenv("PORT"),
 	}
 
 	return cfg, nil

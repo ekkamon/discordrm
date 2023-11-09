@@ -25,7 +25,7 @@ func (s *Server) Start() error {
 		return err
 	}
 
-	fiberURL := fmt.Sprintf("%s:%s", s.Cfg.Host, s.Cfg.Port)
+	fiberURL := fmt.Sprintf("%s:%s", s.Cfg.Server.Host, s.Cfg.Server.Port)
 
 	if err := s.Fiber.Listen(fiberURL); err != nil {
 		return err
