@@ -6,15 +6,10 @@ import (
 )
 
 func main() {
-	cfg, err := config.LoadConfig()
+	// load configs
+	cfg := config.LoadConfig()
 
-	if err != nil {
-		panic(err)
-	}
-
+	// start fiber
 	s := server.NewServer(cfg)
-
-	if err := s.Start(); err != nil {
-		panic(err)
-	}
+	s.Start()
 }

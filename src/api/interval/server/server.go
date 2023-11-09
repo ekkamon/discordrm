@@ -3,7 +3,6 @@ package server
 import (
 	"discordrm/api/config"
 	"fmt"
-	"log"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -20,18 +19,16 @@ func NewServer(cfg *config.Config) *Server {
 	}
 }
 
-func (s *Server) Start() error {
+func (s *Server) Start() {
 	if err := s.MapHandlers(); err != nil {
-		return err
+		panic(err)
 	}
 
 	fiberURL := fmt.Sprintf("%s:%s", s.Cfg.Server.Host, s.Cfg.Server.Port)
 
+	fmt.Printf("[Server] had been startd on %s\n", fiberURL)
+
 	if err := s.Fiber.Listen(fiberURL); err != nil {
-		return err
+		panic(err)
 	}
-
-	log.Fatalf("[Server] had been startd on %s", fiberURL)
-
-	return nil
 }

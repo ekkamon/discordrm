@@ -1,6 +1,8 @@
 package config
 
 import (
+	"fmt"
+
 	"github.com/caarlos0/env/v10"
 	_ "github.com/joho/godotenv/autoload"
 )
@@ -16,12 +18,14 @@ type ServerConfig struct {
 	Port string `env:"FIBER_PORT,required"`
 }
 
-func LoadConfig() (*Config, error) {
+func LoadConfig() *Config {
 	cfg := &Config{}
 
 	if err := env.Parse(cfg); err != nil {
-		return nil, err
+		panic(err)
 	}
 
-	return cfg, nil
+	fmt.Println("[Config] environments has been loaded.")
+
+	return cfg
 }
