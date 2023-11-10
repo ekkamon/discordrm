@@ -4,11 +4,15 @@ import (
 	"discordrm/api/config"
 	"discordrm/api/interval/server"
 	"discordrm/api/pkg/databases"
+	"discordrm/api/pkg/utils"
 )
 
 func main() {
 	// load configs
 	cfg := config.LoadConfig()
+
+	// new validator instance
+	utils.NewValidator()
 
 	// connection database
 	pgsql := databases.NewPostgreSQLConnection(cfg)
