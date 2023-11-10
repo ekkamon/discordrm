@@ -6,12 +6,12 @@ import (
 
 // gorm model
 type User struct {
-	UID            int       `gorm:"primaryKey;unique;autoIncrement;index;notNull"`
-	Email          string    `gorm:"unique;notNull"`
-	DisplayName    string    `gorm:"notNull"`
-	Username       string    `gorm:"unique;notNull"`
-	Password       string    `gorm:"notNull"`
-	DateOfBirthDay time.Time `gorm:"notNull"`
-	CreatedAt      time.Time `gorm:"notNull"`
-	UpdatedAt      time.Time `gorm:"notNull"`
+	UID            int       `gorm:"primaryKey;unique;autoIncrement;index;notNull" json:"uid"`
+	Email          string    `gorm:"unique;notNull" json:"email"`
+	DisplayName    string    `gorm:"notNull" json:"display_name"`
+	Username       string    `gorm:"unique;notNull" json:"username"`
+	Password       string    `gorm:"notNull" json:"password"`
+	DateOfBirthDay time.Time `gorm:"notNull" json:"date_of_birth_day"`
+	CreatedAt      time.Time `gorm:"notNull" json:"created_at"`
+	UpdatedAt      time.Time `gorm:"notNull" json:"updated_at"`
 }
