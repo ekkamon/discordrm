@@ -2,10 +2,12 @@ package databases
 
 import (
 	"discordrm/api/config"
+	"discordrm/api/interval/models"
 	"fmt"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 func NewPostgreSQLConnection(cfg *config.Config) *gorm.DB {
@@ -19,9 +21,15 @@ func NewPostgreSQLConnection(cfg *config.Config) *gorm.DB {
 		cfg.PgSQL.Timezone,
 	)
 
-	db, err := gorm.Open(postgres.Open(pgsqlConnURL), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(pgsqlConnURL), &gorm.Config{
+		Logger: logger.Default.LogMode(logger.Silent),
+	})
 
 	if err != nil {
+		panic(err)
+	}
+
+	if err := db.AutoMigrate(&models.User{}); err != nil {
 		panic(err)
 	}
 
