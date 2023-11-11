@@ -13,5 +13,5 @@ func Handler(fiber fiber.Router, db *databases.Conn) {
 
 	r := fiber.Group("/user")
 
-	r.Post("/register", RegisterValidate, res.register)
+	r.Post("/register", res.register)
 }
