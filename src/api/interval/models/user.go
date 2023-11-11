@@ -1,6 +1,7 @@
 package models
 
 import (
+	"discordrm/api/interval/entities"
 	"time"
 )
 
@@ -14,4 +15,15 @@ type User struct {
 	DateOfBirthDay time.Time `gorm:"notNull" json:"date_of_birth_day"`
 	CreatedAt      time.Time `gorm:"notNull" json:"created_at"`
 	UpdatedAt      time.Time `gorm:"notNull" json:"updated_at"`
+}
+
+func (u *User) ToPublic() entities.UserPublicData {
+	return entities.UserPublicData{
+		UID:            u.UID,
+		Email:          u.Email,
+		DisplayName:    u.DisplayName,
+		Username:       u.Username,
+		DateOfBirthDay: u.DateOfBirthDay,
+		CreatedAt:      u.CreatedAt,
+	}
 }

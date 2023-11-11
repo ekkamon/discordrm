@@ -8,10 +8,12 @@ import (
 	"strings"
 
 	"golang.org/x/crypto/bcrypt"
+	"gorm.io/gorm"
 )
 
 type Service interface {
 	Register(user models.User) (models.User, int, error)
+	Me(uid int) (models.User, int, error)
 }
 
 type service struct {
@@ -26,7 +28,7 @@ func (s service) Register(user models.User) (models.User, int, error) {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(user.Password), 14)
 
 	if err != nil {
-		return models.User{}, http.StatusInternalServerError, err
+		return models.User{}, http.StatusInternalServerError, errors.New(langs.ErrInternalServer)
 	}
 
 	user.Password = string(bytes)
@@ -45,6 +47,19 @@ func (s service) Register(user models.User) (models.User, int, error) {
 		}
 
 		return models.User{}, status, err
+	}
+
+	return user, http.StatusOK, nil
+}
+
+func (s service) Me(uid int) (models.User, int, error) {
+	user, err := s.repo.GetByUID(uid)
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return models.User{}, http.StatusBadRequest, errors.New(langs.ErrBadRequest)
+		} else {
+			return models.User{}, http.StatusInternalServerError, errors.New(langs.ErrInternalServer)
+		}
 	}
 
 	return user, http.StatusOK, nil
