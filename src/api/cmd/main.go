@@ -11,11 +11,9 @@ func main() {
 	// load configs
 	cfg := config.LoadConfig()
 
-	// new validator instance
+	// new util functions
 	utils.NewValidator()
-
-	// new jwt services
-	utils.NewService(cfg)
+	utils.NewJWT(cfg)
 
 	// connection database
 	pgsql := databases.NewPostgreSQLConnection(cfg)

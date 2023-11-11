@@ -10,7 +10,7 @@ import (
 
 var cfg *config.Config
 
-func NewService(_cfg *config.Config) {
+func NewJWT(_cfg *config.Config) {
 	cfg = _cfg
 }
 
