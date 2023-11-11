@@ -8,6 +8,8 @@ import (
 
 type Repository interface {
 	Create(user models.User) (models.User, error)
+	GetByUID(uid int) (models.User, error)
+	GetByUsername(username string) (models.User, error)
 }
 
 type repository struct {
@@ -23,6 +25,28 @@ func (r repository) Create(user models.User) (models.User, error) {
 	user.UpdatedAt = time.Now()
 
 	if res := r.db.PgSql.Omit("ID").Create(&user); res.Error != nil {
+		return models.User{}, res.Error
+	}
+
+	return user, nil
+}
+
+func (r repository) GetByUID(uid int) (models.User, error) {
+	user := models.User{}
+
+	res := r.db.PgSql.Where(&models.User{UID: uid}).First(&user)
+	if res.Error != nil {
+		return models.User{}, res.Error
+	}
+
+	return user, nil
+}
+
+func (r repository) GetByUsername(username string) (models.User, error) {
+	user := models.User{}
+
+	res := r.db.PgSql.Where(&models.User{Username: username}).First(&user)
+	if res.Error != nil {
 		return models.User{}, res.Error
 	}
 
