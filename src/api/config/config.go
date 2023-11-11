@@ -11,6 +11,7 @@ import (
 type Config struct {
 	Server ServerConfig
 	PgSQL  PostgreSQLConfig
+	JWT    JWTConfig
 }
 
 // Fiber Config
@@ -28,6 +29,11 @@ type PostgreSQLConfig struct {
 	DBName   string `env:"PG_DBNAME,required"`
 	SSLMode  string `env:"PG_SSLMODE,required"`
 	Timezone string `env:"PG_TIMEZONE,required"`
+}
+
+// JWT Config
+type JWTConfig struct {
+	SecretKey string `env:"JWT_SECRET_KEY,required"`
 }
 
 func LoadConfig() *Config {

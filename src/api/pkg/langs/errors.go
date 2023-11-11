@@ -13,3 +13,8 @@ const (
 	ErrUsernameAlreadyExists = "error_username_already_exists"
 	ErrEmailAlreadyExists    = "error_email_already_exists"
 )
+
+// auth erros
+const (
+	ErrLoginWithPasswordFailure = "error_login_with_password_failure"
+)

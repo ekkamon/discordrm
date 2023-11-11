@@ -14,6 +14,9 @@ func main() {
 	// new validator instance
 	utils.NewValidator()
 
+	// new jwt services
+	utils.NewService(cfg)
+
 	// connection database
 	pgsql := databases.NewPostgreSQLConnection(cfg)
 

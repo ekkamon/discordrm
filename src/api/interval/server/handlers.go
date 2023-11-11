@@ -1,6 +1,7 @@
 package server
 
 import (
+	"discordrm/api/interval/auth"
 	"discordrm/api/interval/user"
 	"discordrm/api/pkg/langs"
 	"net/http"
@@ -11,7 +12,9 @@ import (
 func (s *Server) MapHandlers() error {
 	v1 := s.Fiber.Group("/v1")
 
+	// service handlers
 	user.Handler(v1, s.DB)
+	auth.Handler(v1, s.DB)
 
 	// catch not found end-points
 	s.Fiber.Use(func(ctx *fiber.Ctx) error {
