@@ -8,6 +8,9 @@ import (
 )
 
 func main() {
+	// setup logger
+	utils.NewLogger()
+
 	// load configs
 	cfg := config.LoadConfig()
 

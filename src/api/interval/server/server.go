@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/sirupsen/logrus"
 )
 
 type Server struct {
@@ -29,7 +30,7 @@ func (s *Server) Start() {
 
 	fiberURL := fmt.Sprintf("%s:%s", s.Cfg.Server.Host, s.Cfg.Server.Port)
 
-	fmt.Printf("[Server] had been startd on %s\n", fiberURL)
+	logrus.Infof("Server had been startd on %s", fiberURL)
 
 	if err := s.Fiber.Listen(fiberURL); err != nil {
 		panic(err)

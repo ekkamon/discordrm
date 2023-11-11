@@ -5,6 +5,7 @@ import (
 	"discordrm/api/interval/models"
 	"fmt"
 
+	"github.com/sirupsen/logrus"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -33,7 +34,7 @@ func NewPostgreSQLConnection(cfg *config.Config) *gorm.DB {
 		panic(err)
 	}
 
-	fmt.Println("[PostgreSQL] has been connected.")
+	logrus.Info("PostgreSQL has been connected.")
 
 	return db
 }

@@ -9,6 +9,7 @@ import (
 	"net/http"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/sirupsen/logrus"
 )
 
 func RegisterValidate(c *fiber.Ctx) (models.User, int, error) {
@@ -26,6 +27,11 @@ func RegisterValidate(c *fiber.Ctx) (models.User, int, error) {
 
 	user := models.User{}
 	if err := c.BodyParser(&user); err != nil {
+		logrus.WithFields(logrus.Fields{
+			"file": "auth/validate.go",
+			"func": "BodyParser",
+		}).Error("struct between request and model maybe different.")
+
 		return models.User{}, http.StatusInternalServerError, errors.New(langs.ErrInternalServer)
 	}
 

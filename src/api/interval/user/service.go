@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/sirupsen/logrus"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
@@ -28,6 +29,12 @@ func (s service) Register(user models.User) (models.User, int, error) {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(user.Password), 14)
 
 	if err != nil {
+		logrus.WithFields(logrus.Fields{
+			"file":    "user/service.go",
+			"service": "Register",
+			"func":    "GenerateFromPassword",
+		}).Error(err)
+
 		return models.User{}, http.StatusInternalServerError, errors.New(langs.ErrInternalServer)
 	}
 
@@ -42,6 +49,12 @@ func (s service) Register(user models.User) (models.User, int, error) {
 		} else if strings.Contains(err.Error(), "username_key") {
 			err = errors.New(langs.ErrUsernameAlreadyExists)
 		} else {
+			logrus.WithFields(logrus.Fields{
+				"file":    "user/service.go",
+				"service": "Register",
+				"func":    "Create",
+			}).Error(err)
+
 			status = http.StatusInternalServerError
 			err = errors.New(langs.ErrInternalServer)
 		}

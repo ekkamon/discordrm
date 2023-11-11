@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/sirupsen/logrus"
 )
 
 type routes struct {
@@ -34,6 +35,11 @@ func (r *routes) loginWithPassword(c *fiber.Ctx) error {
 	// generate access token
 	token, expired, err := utils.CreateToken(user)
 	if err != nil {
+		logrus.WithFields(logrus.Fields{
+			"file": "auth/api.go",
+			"func": "CreateToken",
+		}).Error(err)
+
 		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
 			"status":  http.StatusInternalServerError,
 			"message": langs.ErrInternalServer,

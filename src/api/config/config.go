@@ -1,10 +1,9 @@
 package config
 
 import (
-	"fmt"
-
 	"github.com/caarlos0/env/v10"
 	_ "github.com/joho/godotenv/autoload"
+	"github.com/sirupsen/logrus"
 )
 
 // App Config
@@ -43,7 +42,7 @@ func LoadConfig() *Config {
 		panic(err)
 	}
 
-	fmt.Println("[Config] environments has been loaded.")
+	logrus.Info("Environments has been loaded.")
 
 	return cfg
 }
