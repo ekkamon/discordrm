@@ -12,7 +12,7 @@ import (
 )
 
 func RegisterValidate(c *fiber.Ctx) (models.User, int, error) {
-	payload := entities.RegisterRequest{}
+	payload := entities.UserRegisterRequest{}
 
 	// body parser
 	if err := c.BodyParser(&payload); err != nil {

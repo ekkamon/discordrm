@@ -4,7 +4,7 @@ import (
 	"time"
 )
 
-type RegisterRequest struct {
+type UserRegisterRequest struct {
 	Email          string    `json:"email" validate:"required,email,gte=10,lte=255"`
 	DisplayName    string    `json:"display_name" validate:"required,ascii,gte=1,lte=32"`
 	Username       string    `json:"username" validate:"required,ascii,gte=6,lte=255"`
