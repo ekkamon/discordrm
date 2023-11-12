@@ -3,7 +3,6 @@ package server
 import (
 	"discordrm/api/config"
 	"discordrm/api/pkg/databases"
-	"discordrm/api/pkg/redis"
 	"fmt"
 
 	"github.com/gofiber/fiber/v2"
@@ -14,15 +13,13 @@ type Server struct {
 	Fiber *fiber.App
 	Cfg   *config.Config
 	DB    *databases.Conn
-	Redis *redis.Redis
 }
 
-func NewServer(cfg *config.Config, dbs *databases.Conn, redis *redis.Redis) *Server {
+func NewServer(cfg *config.Config, dbs *databases.Conn) *Server {
 	return &Server{
 		Fiber: fiber.New(),
 		Cfg:   cfg,
 		DB:    dbs,
-		Redis: redis,
 	}
 }
 
