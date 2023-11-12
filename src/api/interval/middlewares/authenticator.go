@@ -24,7 +24,9 @@ func IsAuthenticated() fiber.Handler {
 			})
 		}
 
-		c.Locals("uid", data["uid"])
+		uid := int(data["uid"].(float64))
+
+		c.Locals("uid", uid)
 
 		return c.Next()
 	}

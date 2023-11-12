@@ -33,8 +33,7 @@ func (r routes) register(c *fiber.Ctx) error {
 }
 
 func (r routes) me(c *fiber.Ctx) error {
-	uid := int(c.Locals("uid").(float64))
-
+	uid := c.Locals("uid").(int)
 	user, status, err := r.service.Me(uid)
 	if err != nil {
 		return c.Status(status).JSON(fiber.Map{
