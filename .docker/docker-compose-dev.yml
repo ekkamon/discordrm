@@ -11,5 +11,15 @@ services:
       POSTGRES_USER: ${PG_USER}
       POSTGRES_PASSWORD: ${PG_PASSWORD}
 
+  redis-master:
+    image: redis
+    volumes:
+      - redis-data:/var/lib/redis/data
+    ports:
+      - '${REDIS_PORT}:${REDIS_PORT}'
+    command: >
+      --requirepass ${REDIS_PASSWORD}
+
 volumes:
   pgsql-data:
+  redis-data:
