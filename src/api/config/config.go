@@ -11,6 +11,7 @@ type Config struct {
 	Server ServerConfig
 	PgSQL  PostgreSQLConfig
 	JWT    JWTConfig
+	Redis  RedisConfig
 }
 
 // Fiber Config
@@ -33,6 +34,15 @@ type PostgreSQLConfig struct {
 // JWT Config
 type JWTConfig struct {
 	SecretKey string `env:"JWT_SECRET_KEY,required"`
+}
+
+// Redis Config
+type RedisConfig struct {
+	Host     string `env:"REDIS_HOST"`
+	Port     int    `env:"REDIS_PORT,required"`
+	Username string `env:"REDIS_USERNAME,required"`
+	Password string `env:"REDIS_PASSWORD,required"`
+	Protocol string `env:"REDIS_PROTOCOL,required"`
 }
 
 func LoadConfig() *Config {

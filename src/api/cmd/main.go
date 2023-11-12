@@ -4,6 +4,7 @@ import (
 	"discordrm/api/config"
 	"discordrm/api/interval/server"
 	"discordrm/api/pkg/databases"
+	"discordrm/api/pkg/redis"
 	"discordrm/api/pkg/utils"
 )
 
@@ -18,6 +19,9 @@ func main() {
 	utils.NewValidator()
 	utils.NewJWT(cfg)
 
+	// redis client
+	redis := redis.NewClient(cfg)
+
 	// connection database
 	pgsql := databases.NewPostgreSQLConnection(cfg)
 
@@ -25,6 +29,6 @@ func main() {
 	db := databases.NewMultiDBConnection(pgsql)
 
 	// start fiber
-	s := server.NewServer(cfg, db)
+	s := server.NewServer(cfg, db, redis)
 	s.Start()
 }
