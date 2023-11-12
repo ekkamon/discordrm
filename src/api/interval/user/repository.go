@@ -4,6 +4,7 @@ import (
 	"discordrm/api/interval/models"
 	"discordrm/api/pkg/databases"
 	"errors"
+	"fmt"
 	"strings"
 	"time"
 
@@ -45,6 +46,11 @@ func (r repository) Create(user models.User) (models.User, error) {
 
 func (r repository) GetByUID(uid int) (models.User, error) {
 	user := models.User{}
+	prefix := fmt.Sprintf("%s:%d", "user", uid)
+
+	if err := r.db.Redis.GetModel(prefix, &user); err == nil {
+		return user, nil
+	}
 
 	res := r.db.PgSql.Where(&models.User{UID: uid}).First(&user)
 	if res.Error != nil {
@@ -57,6 +63,8 @@ func (r repository) GetByUID(uid int) (models.User, error) {
 
 		return models.User{}, res.Error
 	}
+
+	r.db.Redis.SetModel(prefix, user, 30*(24*time.Hour))
 
 	return user, nil
 }

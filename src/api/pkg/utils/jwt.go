@@ -15,7 +15,7 @@ func NewJWT(_cfg *config.Config) {
 }
 
 func CreateToken(user models.User) (string, int64, error) {
-	expired := time.Now().Add(time.Hour).Unix()
+	expired := time.Now().Add(30 * (24 * time.Hour)).Unix()
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"uid":        user.UID,
 		"updated_at": user.UpdatedAt,
