@@ -49,7 +49,7 @@ func LoadConfig() *Config {
 	cfg := &Config{}
 
 	if err := env.Parse(cfg); err != nil {
-		panic(err)
+		logrus.Fatal(err)
 	}
 
 	logrus.Info("Environments has been loaded.")

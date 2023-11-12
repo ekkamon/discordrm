@@ -28,7 +28,10 @@ func NewServer(cfg *config.Config, dbs *databases.Conn, redis *redis.Redis) *Ser
 
 func (s *Server) Start() {
 	if err := s.MapHandlers(); err != nil {
-		panic(err)
+		logrus.WithFields(logrus.Fields{
+			"file": "server/server.go",
+			"func": "MapHandlers",
+		}).Fatal(err)
 	}
 
 	fiberURL := fmt.Sprintf("%s:%s", s.Cfg.Server.Host, s.Cfg.Server.Port)
@@ -36,6 +39,8 @@ func (s *Server) Start() {
 	logrus.Infof("Server had been startd on %s", fiberURL)
 
 	if err := s.Fiber.Listen(fiberURL); err != nil {
-		panic(err)
+		logrus.WithFields(logrus.Fields{
+			"service": "Fiber",
+		}).Fatal(err)
 	}
 }

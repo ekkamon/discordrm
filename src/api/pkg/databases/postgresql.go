@@ -25,13 +25,16 @@ func NewPostgreSQLConnection(cfg *config.Config) *gorm.DB {
 	db, err := gorm.Open(postgres.Open(pgsqlConnURL), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Silent),
 	})
-
 	if err != nil {
-		panic(err)
+		logrus.WithFields(logrus.Fields{
+			"service": "PostgreSQL",
+		}).Fatal(err)
 	}
 
 	if err := db.AutoMigrate(&models.User{}); err != nil {
-		panic(err)
+		logrus.WithFields(logrus.Fields{
+			"service": "PostgreSQL",
+		}).Fatal(err)
 	}
 
 	logrus.Info("PostgreSQL has been connected.")
