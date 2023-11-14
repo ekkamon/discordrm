@@ -9,7 +9,7 @@ import (
 
 func Handler(fiber fiber.Router, db *databases.Conn) {
 	res := routes{
-		service: NewService(user.NewRepository(db)),
+		service: NewService(NewRepository(db), user.NewRepository(db)),
 	}
 	r := fiber.Group("/auth")
 

@@ -17,6 +17,6 @@ func Handler(fiber fiber.Router, db *databases.Conn) {
 	r.Post("/register", res.register)
 
 	// protected routes
-	r.Use(middlewares.IsAuthenticated())
+	r.Use(middlewares.IsAuthenticated(db))
 	r.Get("/me", res.me)
 }

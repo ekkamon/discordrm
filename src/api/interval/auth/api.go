@@ -1,12 +1,10 @@
 package auth
 
 import (
-	"discordrm/api/pkg/langs"
-	"discordrm/api/pkg/utils"
+	"discordrm/api/interval/entities"
 	"net/http"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/sirupsen/logrus"
 )
 
 type routes struct {
@@ -23,8 +21,8 @@ func (r *routes) loginWithPassword(c *fiber.Ctx) error {
 		})
 	}
 
-	// login check
-	user, status, err = r.service.LoginWithPassword(user)
+	res := entities.TokenData{}
+	status, err = r.service.LoginWithPassword(user, &res)
 	if err != nil {
 		return c.Status(status).JSON(fiber.Map{
 			"status":  status,
@@ -32,26 +30,9 @@ func (r *routes) loginWithPassword(c *fiber.Ctx) error {
 		})
 	}
 
-	// generate access token
-	token, expired, err := utils.CreateToken(user)
-	if err != nil {
-		logrus.WithFields(logrus.Fields{
-			"file": "auth/api.go",
-			"func": "CreateToken",
-		}).Error(err)
-
-		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
-			"status":  http.StatusInternalServerError,
-			"message": langs.ErrInternalServer,
-		})
-	}
-
 	return c.Status(http.StatusOK).JSON(fiber.Map{
 		"status": http.StatusOK,
-		"data": fiber.Map{
-			"access_token": token,
-			"expired":      expired,
-		},
+		"data":   res,
 	})
 
 }

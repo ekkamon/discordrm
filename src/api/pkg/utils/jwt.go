@@ -3,9 +3,9 @@ package utils
 import (
 	"discordrm/api/config"
 	"discordrm/api/interval/models"
-	"time"
 
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/sirupsen/logrus"
 )
 
 var cfg *config.Config
@@ -14,20 +14,24 @@ func NewJWT(_cfg *config.Config) {
 	cfg = _cfg
 }
 
-func CreateToken(user models.User) (string, int64, error) {
-	expired := time.Now().Add(30 * (24 * time.Hour)).Unix()
+func CreateToken(user models.User, expiredIn int64) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"uid":        user.UID,
-		"updated_at": user.UpdatedAt,
-		"expired":    expired,
+		"uid": user.UID,
 	})
+
+	// set ttl
+	token.Claims.(jwt.MapClaims)["exp"] = expiredIn
 
 	strToken, err := token.SignedString([]byte(cfg.JWT.SecretKey))
 	if err != nil {
-		return "", 0, err
+		logrus.WithFields(logrus.Fields{
+			"file": "utils/jwt.go",
+			"func": "CreateToken",
+		}).Error(err)
+		return "", err
 	}
 
-	return strToken, expired, nil
+	return strToken, nil
 }
 
 func ValidateToken(strToken string) (jwt.MapClaims, error) {
