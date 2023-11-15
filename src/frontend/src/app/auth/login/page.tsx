@@ -1,3 +1,5 @@
+"use client"
+
 import { NextPage } from "next"
 import { Card, Wrapper } from "@/components/Auth/Layout"
 import { Forms } from "@/components/Auth/Login/Form"

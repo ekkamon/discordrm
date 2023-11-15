@@ -5,14 +5,14 @@ export const Wrapper = tw.div`
   flex
   h-full
   w-full
-  items-center
-  justify-center
-  px-10
+  xs:items-center
+  xs:justify-center
+  sm:px-10
 `
 
 export const Card = tw.div`
   bg-dark
-  rounded
+  xs:rounded
   shadow-xl
   p-8
 `
