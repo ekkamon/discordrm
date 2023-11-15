@@ -1,5 +1,5 @@
-import { Button } from "../Button"
-import { Input } from "../Input"
+import Button from "../Button"
+import Input from "../Input"
 import { Link } from "../Utils"
 
 const Forms: React.FC<{}> = () => {
@@ -20,4 +20,4 @@ const Forms: React.FC<{}> = () => {
   )
 }
 
-export { Forms }
+export default Forms

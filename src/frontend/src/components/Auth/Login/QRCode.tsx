@@ -24,4 +24,4 @@ const QRCode: React.FC<{}> = () => {
   )
 }
 
-export { QRCode }
+export default QRCode

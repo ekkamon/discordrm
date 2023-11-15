@@ -25,4 +25,4 @@ const Input: React.FC<InputProps> = ({ type, label, isRequired = false }) => {
   )
 }
 
-export { Input }
+export default Input

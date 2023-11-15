@@ -1,8 +1,8 @@
 import { NextPage } from "next"
 import { Card, Wrapper } from "@/components/Auth/Utils"
-import { Forms } from "@/components/Auth/Login/Forms"
-import { Header } from "@/components/Auth/Login/Header"
-import { QRCode } from "@/components/Auth/Login/QRCode"
+import Forms from "@/components/Auth/Login/Forms"
+import Header from "@/components/Auth/Login/Header"
+import QRCode from "@/components/Auth/Login/QRCode"
 
 const LoginPage: NextPage<{}> = () => {
   return (
