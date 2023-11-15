@@ -10,7 +10,7 @@ I just cloned the UI/UX from Discord and did not redesign anything. So you don't
 - PostgreSQL
 - MongoDB
 - Go (Fiber)
-- React (Typescript)
+- Next.js (Typescript)
 - Sass
 - Docker
 
