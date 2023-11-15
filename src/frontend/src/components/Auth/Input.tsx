@@ -1,11 +1,12 @@
 import React from "react"
 
 interface InputProps {
+  type: "text" | "password" | "number"
   label?: string
   isRequired?: boolean
 }
 
-const Input: React.FC<InputProps> = ({ label, isRequired = false }) => {
+const Input: React.FC<InputProps> = ({ type, label, isRequired = false }) => {
   return (
     <div className="space-y-1.5">
       {label && (
@@ -15,6 +16,7 @@ const Input: React.FC<InputProps> = ({ label, isRequired = false }) => {
         </label>
       )}
       <input
+        type={type}
         className="bg-almost flex h-10 w-full items-center rounded px-3 text-sm text-gray-200"
         autoFocus
         required={isRequired}

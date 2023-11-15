@@ -16,3 +16,10 @@ export const Card = tw.div`
   shadow-xl
   p-8
 `
+
+export const Link = tw.a`
+  text-sky
+  font-medium
+  hover:underline
+  cursor-pointer
+`
