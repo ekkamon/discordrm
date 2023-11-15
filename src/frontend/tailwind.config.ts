@@ -7,7 +7,19 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        sky: "#4BA5F5",
+        blurple: {
+          DEFAULT: "#5865F2",
+          600: "#4951BD",
+          700: "#4147A3",
+        },
+        grayish: "#23272A",
+        almost: "#1E1F22",
+        dark: "#313338",
+      },
+    },
   },
   plugins: [],
 }
