@@ -9,4 +9,17 @@ input {
 
 body {
   @apply text-gray-100;
+  background-color: #313338;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply rounded-sm bg-almost;
 }

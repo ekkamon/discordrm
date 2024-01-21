@@ -13,7 +13,10 @@ const Forms: React.FC<{}> = () => {
       <div className="mt-5">
         <Button>Log In</Button>
         <div className="mt-3 text-xs text-gray-400">
-          Need an account? <Link className="text-xs font-medium">Register</Link>
+          Need an account?{" "}
+          <Link href="/auth/register" className="text-xs font-medium">
+            Register
+          </Link>
         </div>
       </div>
     </>

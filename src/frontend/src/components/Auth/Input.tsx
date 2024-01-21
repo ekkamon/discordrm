@@ -17,7 +17,7 @@ const Input: React.FC<InputProps> = ({ type, label, isRequired = false }) => {
       )}
       <input
         type={type}
-        className="bg-almost flex h-10 w-full items-center rounded px-3 text-sm text-gray-200"
+        className="flex h-10 w-full items-center rounded bg-almost px-3 text-sm text-gray-200"
         autoFocus
         required={isRequired}
       />

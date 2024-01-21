@@ -25,7 +25,11 @@ const config: Config = {
         },
         grayish: "#23272A",
         almost: "#1E1F22",
-        dark: "#313338",
+        dark: {
+          DEFAULT: "#313338",
+          600: "#2B2D31",
+          800: "#1e1f22",
+        },
       },
     },
   },
